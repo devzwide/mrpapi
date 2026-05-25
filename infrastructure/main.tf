@@ -98,7 +98,7 @@ resource "azurerm_kubernetes_cluster" "aks-mrpapi-dev-southafricanorth" {
   default_node_pool {
     name           = "default"
     node_count     = 2
-    vm_size        = "Standard_B2ls_v2"   # Use this to check: az vm list-sizes --location "southafricanorth" --output table
+    vm_size        = "Standard_B2ls_v2" # Use this to check: az vm list-sizes --location "southafricanorth" --output table
     vnet_subnet_id = azurerm_subnet.subnet-mrpapi-api-dev-southafricanorth.id
   }
 
@@ -109,6 +109,8 @@ resource "azurerm_kubernetes_cluster" "aks-mrpapi-dev-southafricanorth" {
   network_profile {
     network_plugin    = "azure"
     network_policy    = "azure"
+    service_cidr      = "172.16.0.0/16"
+    dns_service_ip    = "172.16.0.10"
     load_balancer_sku = "standard"
   }
 

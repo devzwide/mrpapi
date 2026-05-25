@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mrpapi-backend
+  labels:
+    app: mrpapi-backend
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: mrpapi-backend
+  template:
+    metadata:
+      labels:
+        app: mrpapi-backend
+    spec:
+      containers:
+      - name: mrpapi-backend
+        image: acrmrpapidevsanorth.azurecr.io/mrpapi-backend:__IMAGE_TAG__
+        ports:
+        - containerPort: 8080
+        env:
+        - name: ASPNETCORE_ENVIRONMENT
+          value: "Development"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mrpapi-backend-service
+spec:
+  type: LoadBalancer
+  selector:
+    app: mrpapi-backend
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 8080

@@ -98,7 +98,7 @@ resource "azurerm_kubernetes_cluster" "aks-mrpapi-dev-southafricanorth" {
   default_node_pool {
     name           = "default"
     node_count     = 2
-    vm_size        = "Standard_B2as_v2" # Use this to check: az vm list-sizes --location "southafricanorth" --output table
+    vm_size        = "Standard_D4ds_v4"
     vnet_subnet_id = azurerm_subnet.subnet-mrpapi-api-dev-southafricanorth.id
   }
 

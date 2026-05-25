@@ -230,3 +230,44 @@ From the providers.tf I have organization and workspace details, create them on 
 - On Account Settings >>>  Tokens >>> Create Token (TF_API_TOKEN) and copy it
 - On Azure Pipelines >>> Pipelines >>> On Pipeline (Edit) >>> Variables then add secured variable
 
+---
+
+## Pipeline
+
+Push to Github and Trigger Azure Pipeline:
+```bash
+devzwide@BUNXU:~/devops/mrp/mrpapi$ git status
+On branch main
+Your branch is up to date with 'github/main'.
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+        README.md
+
+nothing added to commit but untracked files present (use "git add" to track)
+devzwide@BUNXU:~/devops/mrp/mrpapi$ git add .
+devzwide@BUNXU:~/devops/mrp/mrpapi$ git commit -m "Documenting my steps"
+[main 65385f3] Documenting my steps
+ 1 file changed, 232 insertions(+)
+ create mode 100644 README.md
+devzwide@BUNXU:~/devops/mrp/mrpapi$ git push
+Enter passphrase for key '/home/devzwide/.ssh/id_ed25519':
+Enumerating objects: 4, done.
+Counting objects: 100% (4/4), done.
+Delta compression using up to 8 threads
+Compressing objects: 100% (3/3), done.
+Writing objects: 100% (3/3), 2.88 KiB | 1.44 MiB/s, done.
+Total 3 (delta 1), reused 0 (delta 0), pack-reused 0 (from 0)
+remote: Resolving deltas: 100% (1/1), completed with 1 local object.
+To github.com:devzwide/mrpapi.git
+   a233b0a..65385f3  main -> main
+```
+
+Trying to access it on the web:
+```bash
+devzwide@BUNXU:~/devops/mrp/mrpapi$  az aks get-credentials  --resource-group rg-mrpapi-dev-southafricanorth --name aks-mrpapi-dev-southafricanorth --file ~/.kube/config --overwrite-existing
+Merged "aks-mrpapi-dev-southafricanorth" as current context in /home/devzwide/.kube/config
+devzwide@BUNXU:~/devops/mrp/mrpapi$ kubectl get service mrpapi-backend-service
+NAME                     TYPE           CLUSTER-IP      EXTERNAL-IP    PORT(S)        AGE
+mrpapi-backend-service   LoadBalancer   ***.**.***.**   20.87.38.219   80:****/TCP   2m1s
+```

@@ -93,6 +93,7 @@ resource "azurerm_kubernetes_cluster" "aks-mrpapi-dev-southafricanorth" {
   resource_group_name = azurerm_resource_group.rg-mrpapi-dev-southafricanorth.name
   location            = azurerm_resource_group.rg-mrpapi-dev-southafricanorth.location
   dns_prefix          = "aks-mrpapi-dev-southafricanorth"
+  node_resource_group = "rg-aks-nodes-mrpapi-dev-sanorth"
 
   default_node_pool {
     name           = "default"
